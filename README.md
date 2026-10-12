@@ -36,8 +36,9 @@ d <- read_rankheat("my_sucras.csv")          # .csv, .tsv or .xlsx
 p <- rankheatplot(d)
 p
 
-# Journal-ready TIFF (LZW compressed). Fonts rescale with the figure size.
-save_rankheatplot(p, "rankheat.tiff", width = 7, height = 7, dpi = 600)
+# Journal-ready TIFF (LZW compressed) at any resolution, e.g. 900 dpi.
+# Fonts rescale with the figure size.
+save_rankheatplot(p, "rankheat.tiff", width = 7, height = 7, dpi = 900)
 save_rankheatplot(p, "rankheat.pdf")
 ```
 
@@ -75,6 +76,7 @@ rankheatplot(rh)
 |---|---|
 | `treatment_order` | `"data"`, `"mean"` (best first) or `"alphabetical"`, or a vector of names |
 | `outcome_order` | vector of outcome names, outermost first |
+| `style` | `"classic"` (original website, default) or `"current"` (Veroniki's current GitHub app: RdYlGn colours, grey borders) |
 | `palette` | `"veroniki"` (original), `"ryg"`, `"RdYlGn"`, `"grey"`, `"viridis"` or your own colours |
 | `show_values`, `digits`, `na_label` | numbers in the cells; `na_label = "*"` marks missing cells as in the paper's grey version |
 | `outcome_title`, `legend_title`, `legend_position` | headings and legend |

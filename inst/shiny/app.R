@@ -54,8 +54,12 @@ ui <- fluidPage(
         tabPanel(
           "Colours & text",
           br(),
+          selectInput("style", "Style",
+                      c("Classic (original website)" = "classic",
+                        "Current (Veroniki's GitHub app)" = "current")),
           selectInput("palette", "Colour scale",
-                      c("Original (red - yellow - green)" = "veroniki",
+                      c("Same as style" = "style",
+                        "Original website (red - yellow - green)" = "veroniki",
                         "Red / yellow / green" = "ryg",
                         "ColorBrewer RdYlGn" = "RdYlGn",
                         "Grey scale" = "grey",
@@ -89,7 +93,7 @@ ui <- fluidPage(
             column(4, numericInput("height", "Height", 7, 1, 30, 0.5)),
             column(4, selectInput("units", "Units", c("in", "cm", "mm")))
           ),
-          numericInput("dpi", "Resolution (dpi, TIFF/PNG)", 600, 72, 1200, 50),
+          numericInput("dpi", "Resolution (dpi, TIFF/PNG)", 600, 72, 2400, 50),
           downloadButton("download", "Download plot")
         )
       )
@@ -146,7 +150,8 @@ server <- function(input, output, session) {
       d,
       treatment_order = input$treatment_order,
       outcome_order = outs,
-      palette = input$palette,
+      style = input$style,
+      palette = if (input$palette == "style") NULL else input$palette,
       reverse_palette = input$reverse,
       show_values = input$show_values,
       digits = input$digits %||% 0,

@@ -42,3 +42,22 @@ test_that("plots are saved in every format", {
   save_rankheatplot(p, f)
   expect_gt(file.size(f), 1000)
 })
+
+test_that("styles set palette and borders unless overridden", {
+  cur <- attr(rankheatplot(example_rankheat, style = "current"), "rankheat_args")
+  expect_equal(cur$palette, "RdYlGn")
+  expect_equal(cur$border_colour, "grey")
+  cls <- attr(rankheatplot(example_rankheat), "rankheat_args")
+  expect_equal(cls$palette, "veroniki")
+  own <- attr(rankheatplot(example_rankheat, style = "current", palette = "grey"), "rankheat_args")
+  expect_equal(own$palette, "grey")
+})
+
+test_that("TIFFs carry the requested resolution", {
+  f <- tempfile(fileext = ".tiff")
+  save_rankheatplot(rankheatplot(example_rankheat), f, width = 2, height = 2, dpi = 900)
+  # A 2 x 2 inch plot at 900 dpi is 1800 x 1800 pixels.
+  expect_gt(file.size(f), 1000)
+  skip_if_not_installed("tiff")
+  expect_equal(dim(tiff::readTIFF(f))[1:2], c(1800, 1800))
+})

@@ -16,6 +16,12 @@
 #'   A character vector of treatment names sets the order directly.
 #' @param outcome_order `"data"` keeps the order of the data (first outcome
 #'   outermost); a character vector of outcome names sets it directly.
+#' @param style Overall look. `"classic"` (default) reproduces the original
+#'   rank-heat plot website: bright red - yellow - green scale and blue-grey
+#'   borders. `"current"` reproduces the app Veroniki's group maintains on
+#'   GitHub (averoniki/rankheatplot): ColorBrewer RdYlGn scale and grey
+#'   borders. The layout is the same in both. `palette` and `border_colour`
+#'   override the style when given.
 #' @param palette A palette name from [rankheat_palettes()] or a vector of
 #'   colours (low to high).
 #' @param reverse_palette Reverse the palette.
@@ -57,7 +63,8 @@ rankheatplot <- function(data,
                          treatment = NULL, outcome = NULL, value = NULL,
                          treatment_order = "data",
                          outcome_order = "data",
-                         palette = "veroniki",
+                         style = c("classic", "current"),
+                         palette = NULL,
                          reverse_palette = FALSE,
                          limits = c(0, 100),
                          scale = c("auto", "percent", "proportion"),
@@ -70,7 +77,7 @@ rankheatplot <- function(data,
                          legend_position = "bottomleft",
                          inner_radius = 0.35,
                          sector_gap = 2,
-                         border_colour = "#B3C3C9",
+                         border_colour = NULL,
                          border_width = 0.2,
                          text_colour = "black",
                          value_size = 2.3,
@@ -81,6 +88,9 @@ rankheatplot <- function(data,
                          label_offset = 0.006,
                          family = "") {
   scale <- match.arg(scale)
+  style <- match.arg(style)
+  if (is.null(palette)) palette <- if (style == "classic") "veroniki" else "RdYlGn"
+  if (is.null(border_colour)) border_colour <- if (style == "classic") "#B3C3C9" else "grey"
   recipe <- mget(names(formals(rankheatplot)), environment())
   d <- rankheat_data(data, treatment, outcome, value, scale = scale)
   d <- apply_orders(d, treatment_order, outcome_order)
@@ -170,7 +180,7 @@ rankheatplot <- function(data,
   )
 
   # Leave room for the treatment names around the outer ring.
-  lim <- 1.106 + label_offset + 0.112 * max(0, treatment_size * ts / 3 - 1)
+  lim <- 1.097 + label_offset + 0.112 * max(0, treatment_size * ts / 3 - 1)
   p <- p +
     ggplot2::coord_fixed(xlim = c(-lim, lim), ylim = c(-lim, lim), expand = FALSE, clip = "off") +
     ggplot2::theme_void(base_family = family) +
@@ -237,7 +247,7 @@ check_order <- function(order, available, arg) {
 
 legend_theme <- function(position, size, colour, ts = 1) {
   base <- ggplot2::theme(
-    plot.margin = ggplot2::margin(5, 5.5, 1, 5.5) * ts,
+    plot.margin = ggplot2::margin(11, 5.5, 1, 5.5) * ts,
     legend.title = ggplot2::element_text(face = "bold", size = size, colour = colour,
                                          hjust = 0.5, margin = ggplot2::margin(b = -2 * ts)),
     legend.text = ggplot2::element_text(size = size, colour = colour,

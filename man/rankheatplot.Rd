@@ -11,7 +11,8 @@ rankheatplot(
   value = NULL,
   treatment_order = "data",
   outcome_order = "data",
-  palette = "veroniki",
+  style = c("classic", "current"),
+  palette = NULL,
   reverse_palette = FALSE,
   limits = c(0, 100),
   scale = c("auto", "percent", "proportion"),
@@ -24,7 +25,7 @@ rankheatplot(
   legend_position = "bottomleft",
   inner_radius = 0.35,
   sector_gap = 2,
-  border_colour = "#B3C3C9",
+  border_colour = NULL,
   border_width = 0.2,
   text_colour = "black",
   value_size = 2.3,
@@ -48,6 +49,13 @@ A character vector of treatment names sets the order directly.}
 
 \item{outcome_order}{`"data"` keeps the order of the data (first outcome
 outermost); a character vector of outcome names sets it directly.}
+
+\item{style}{Overall look. `"classic"` (default) reproduces the original
+rank-heat plot website: bright red - yellow - green scale and blue-grey
+borders. `"current"` reproduces the app Veroniki's group maintains on
+GitHub (averoniki/rankheatplot): ColorBrewer RdYlGn scale and grey
+borders. The layout is the same in both. `palette` and `border_colour`
+override the style when given.}
 
 \item{palette}{A palette name from [rankheat_palettes()] or a vector of
 colours (low to high).}
