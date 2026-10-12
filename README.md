@@ -45,7 +45,21 @@ Values between 0 and 1 (e.g. P-scores) are converted to percentages
 automatically. Long data (`treatment`, `outcome`, `value` columns) and
 matrices with treatment row names work too.
 
-Straight from `netmeta`:
+### SUCRAs from a Bayesian NMA
+
+SUCRAs from any Bayesian software (gemtc, multinma, BUGSnet, WinBUGS, JAGS,
+Stan) work as a plain table, as 0-1 values or percentages. For `gemtc` there
+is a shortcut that computes the SUCRAs for you:
+
+```r
+rh <- rankheat_from_gemtc(
+  list(Response = res_response, `Adverse events` = res_ae),  # mtc.run() results
+  preferredDirection = c(1, -1)   # 1: higher is better, -1: lower is better
+)
+rankheatplot(rh)
+```
+
+### P-scores from `netmeta`
 
 ```r
 rh <- rankheat_from_netmeta(

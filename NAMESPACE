@@ -2,6 +2,7 @@
 
 S3method(grid::makeContent,arctext)
 export(rankheat_data)
+export(rankheat_from_gemtc)
 export(rankheat_from_netmeta)
 export(rankheat_palette)
 export(rankheat_palettes)

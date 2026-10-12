@@ -10,8 +10,8 @@ Draws the rank-heat plot of Veroniki et al. (2016) \doi{10.1016/j.jclinepi.2016.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/fparaiso19/rankheatplot}
-  \item Report bugs at \url{https://github.com/fparaiso19/rankheatplot/issues}
+  \item \url{https://github.com/fparaiso19/rankheatplot_}
+  \item Report bugs at \url{https://github.com/fparaiso19/rankheatplot_/issues}
 }
 
 }

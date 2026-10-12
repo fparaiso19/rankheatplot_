@@ -23,6 +23,7 @@ Imports:
     tools,
     utils
 Suggests:
+    gemtc,
     netmeta,
     readxl,
     shiny,
