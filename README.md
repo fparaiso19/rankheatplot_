@@ -13,7 +13,7 @@ scale. Cells without data are left white.
 
 ```r
 # install.packages("remotes")
-remotes::install_github("fparaiso19/rankheatplot")
+remotes::install_github("fparaiso19/rankheatplot_")
 ```
 
 ## Use
